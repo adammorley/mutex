@@ -8,6 +8,16 @@ struct mutex {
     bool* m;
 };
 
+#ifdef _UNIT_TEST
+#define STATIC 
+#else
+#define STATIC static
+#endif
+
+#ifdef _UNIT_TEST
+bool _lock(mutex* mutex);
+#endif
+
 /*
     create the mutex
 */
@@ -17,6 +27,11 @@ mutex* mutex_create();
     frees the mutex
 */
 void mutex_delete(mutex* mutex);
+
+/*
+    returns whether the mutex is locked
+*/
+bool mutex_islocked(mutex* mutex);
 
 /*
     lock the mutex
