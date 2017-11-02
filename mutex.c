@@ -34,7 +34,7 @@ bool mutex_islocked(mutex* m) {
 
 void mutex_lock(mutex* m) {
     while (!_lock(m)) {
-        int r = nanosleep(&_t, NULL);
+        // FIXME: switch to clock_nanosleep() using monotonic clock
         if (nanosleep(&_t, NULL)) {
             fprintf(stderr, "problem with nanosleep, note FIXME\n");
             assert(false);
