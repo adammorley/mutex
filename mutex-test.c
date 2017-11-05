@@ -1,4 +1,5 @@
 #include <assert.h>
+#include <stdio.h>
 #include "mutex.h"
 
 int main(void) {
@@ -6,6 +7,10 @@ int main(void) {
     assert(_lock(m));
     assert(mutex_islocked(m));
     assert(!_lock(m));
+    assert(mutex_islocked(m));
+    mutex_unlock(m);
+    assert(!mutex_islocked(m));
+    mutex_lock(m);
     assert(mutex_islocked(m));
     mutex_unlock(m);
     assert(!mutex_islocked(m));

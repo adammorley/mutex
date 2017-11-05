@@ -3,10 +3,7 @@
 #ifndef MUTEX_H
 #define MUTEX_H
 
-typedef struct mutex mutex;
-struct mutex {
-    bool* m;
-};
+typedef bool* mutex;
 
 #ifdef _UNIT_TEST
 #define STATIC 

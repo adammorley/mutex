@@ -6,30 +6,29 @@
 #include "mutex.h"
 
 static struct timespec _t = {0, 100};
-static bool _expected;
+static bool _e;
 
 STATIC bool _lock(mutex* m) {
-    _expected = false;
+    _e = false;
     /*
         bool __atomic_compare_exchange_n (type *ptr, type *expected, type desired, bool weak, int success_memorder, int failure_memorder)
-        https://gcc.gnu.org/onlinedocs/gcc-7.2.0/gcc/_005f_005fatomic-Builtins.html#g_t_005f_005fatomic-Builtins
+        https://gcc.gnu.org/onlinedocs/gcc/_005f_005fatomic-Builtins.html
     */
-    return __atomic_compare_exchange_n(m->m, &_expected, true, false, __ATOMIC_SEQ_CST, __ATOMIC_SEQ_CST);
+    return __atomic_compare_exchange_n(m, &_e, true, true, __ATOMIC_ACQ_REL, __ATOMIC_RELAXED);
 }
 
 mutex* mutex_create() {
-    mutex* m = malloc(sizeof(mutex));
-    m->m = malloc(sizeof(bool));
+    mutex* m = malloc(sizeof(bool));
+    *m = false;
     return m;
 }
 
 void mutex_delete(mutex* m) {
-    free(m->m);
     free(m);
 }
 
 bool mutex_islocked(mutex* m) {
-    return __atomic_load_n(m->m, __ATOMIC_SEQ_CST);
+    return __atomic_load_n(m, __ATOMIC_ACQUIRE);
 }
 
 void mutex_lock(mutex* m) {
@@ -43,5 +42,5 @@ void mutex_lock(mutex* m) {
 }
 
 void mutex_unlock(mutex* m) {
-    __atomic_store_n(m->m, false, __ATOMIC_SEQ_CST);
+    __atomic_store_n(m, false, __ATOMIC_RELEASE);
 }
