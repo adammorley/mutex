@@ -38,7 +38,7 @@ int main(void) {
     assert(mutex_islocked(m));
     usleep(50);
     assert(*x == 2);
-    usleep(100);
+    usleep(150);
     assert(!mutex_islocked(m));
     pthread_join(tid0, NULL);
     pthread_join(tid1, NULL);
