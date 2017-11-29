@@ -35,6 +35,16 @@ bool mutex_lock(mutex* m) {
     return _lock(m);
 }
 
+bool mutex_lock2(mutex* m0, mutex* m1) {
+    if (mutex_lock(m0)) {
+        if (mutex_lock(m1)) {
+            return true;
+        }
+        mutex_unlock(m0);
+    }
+    return false;
+}
+
 void mutex_spinlock(mutex* m) {
     while (!_lock(m)) {
         // FIXME: switch to clock_nanosleep() using monotonic clock

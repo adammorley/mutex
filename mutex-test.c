@@ -11,6 +11,7 @@ int main(void) {
     mutex_unlock(m);
     assert(!mutex_islocked(m));
     assert(mutex_lock(m));
+    assert(!mutex_lock(m));
     assert(mutex_islocked(m));
     mutex_unlock(m);
     assert(!mutex_islocked(m));

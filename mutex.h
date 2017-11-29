@@ -36,6 +36,11 @@ bool mutex_islocked(mutex* mutex);
 bool mutex_lock(mutex* mutex);
 
 /*
+    lock two mutexes, doing backoff
+*/
+bool mutex_lock2(mutex* mutex0, mutex* mutex1);
+
+/*
     spinlock the mutex
 */
 void mutex_spinlock(mutex* mutex);
