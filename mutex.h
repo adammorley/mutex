@@ -32,9 +32,13 @@ bool mutex_islocked(mutex* mutex);
 
 /*
     lock the mutex
-    busy-waits with sleep
 */
-void mutex_lock(mutex* mutex);
+bool mutex_lock(mutex* mutex);
+
+/*
+    spinlock the mutex
+*/
+void mutex_spinlock(mutex* mutex);
 
 /*
     unlock the mutex

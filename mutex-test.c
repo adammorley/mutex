@@ -10,7 +10,7 @@ int main(void) {
     assert(mutex_islocked(m));
     mutex_unlock(m);
     assert(!mutex_islocked(m));
-    mutex_lock(m);
+    assert(mutex_lock(m));
     assert(mutex_islocked(m));
     mutex_unlock(m);
     assert(!mutex_islocked(m));

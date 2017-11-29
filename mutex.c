@@ -31,7 +31,11 @@ bool mutex_islocked(mutex* m) {
     return __atomic_load_n(m, __ATOMIC_ACQUIRE);
 }
 
-void mutex_lock(mutex* m) {
+bool mutex_lock(mutex* m) {
+    return _lock(m);
+}
+
+void mutex_spinlock(mutex* m) {
     while (!_lock(m)) {
         // FIXME: switch to clock_nanosleep() using monotonic clock
         if (nanosleep(&_t, NULL)) {

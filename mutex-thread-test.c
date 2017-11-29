@@ -12,7 +12,7 @@ struct t_args {
 
 void* update(void* args) {
     struct t_args* arg = (struct t_args*) args;
-    mutex_lock(arg->m);
+    mutex_spinlock(arg->m);
     *arg->x += 1;
     usleep(100);
     mutex_unlock(arg->m);
