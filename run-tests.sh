@@ -2,6 +2,6 @@
 
 make clean
 make all
-./mutex-test && \
-    ./mutex-thread-test && \
+./test && \
+    ./test && \
     echo 'ok'

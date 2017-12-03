@@ -16,6 +16,7 @@ void* update(void* args) {
     *arg->x += 1;
     usleep(100);
     mutex_unlock(arg->m);
+    return NULL;
 }
 
 int main(void) {
