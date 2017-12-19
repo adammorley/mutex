@@ -3,5 +3,5 @@
 make clean
 make all
 ./test && \
-    ./test && \
+    ./thread-test && \
     echo 'ok'
