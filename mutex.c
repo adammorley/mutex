@@ -48,8 +48,8 @@ bool mutex_lock2(mutex* m0, mutex* m1) {
 
 void mutex_spinlock(mutex* m) {
     while (!_lock(m)) {
-        // FIXME: switch to clock_nanosleep() using monotonic clock
         if (clock_nanosleep(CLOCK_MONOTONIC, 0, &_t, NULL)) {
+            // FIXME: capture error value
             fprintf(stderr, "problem with nanosleep, note FIXME\n");
             assert(false);
         }
