@@ -2,6 +2,7 @@
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include <time.h>
 #include "mutex.h"
 
@@ -47,10 +48,11 @@ bool mutex_lock2(mutex* m0, mutex* m1) {
 }
 
 void mutex_spinlock(mutex* m) {
+    int e;
     while (!_lock(m)) {
-        if (clock_nanosleep(CLOCK_MONOTONIC, 0, &_t, NULL)) {
-            // FIXME: capture error value
-            fprintf(stderr, "problem with nanosleep, note FIXME\n");
+        e = clock_nanosleep(CLOCK_MONOTONIC, 0, &_t, NULL);
+        if (e) {
+            fprintf(stderr, "problem with nanosleep, error was: %s\n", strerror(e));
             assert(false);
         }
     }
