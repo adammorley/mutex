@@ -20,7 +20,7 @@ STATIC bool _lock(mutex* m) {
 
 mutex* mutex_create() {
     mutex* m = malloc(sizeof(bool));
-    if (m == NULL) assert(true);
+    if (m == NULL) assert(false);
     *m = false;
     return m;
 }
